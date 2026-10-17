@@ -1,0 +1,13 @@
+bin/
+obj/
+.vs/
+*.exe
+*.dll
+*.pdb
+*.user
+*.suo
+*.cache
+*recovery*.xml
+settings.xml
+activity.log
+VerifiedCoreMap.xml

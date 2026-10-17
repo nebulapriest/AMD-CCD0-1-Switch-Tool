@@ -1,0 +1,8 @@
+源码构建
+
+主程序：从此目录运行 Build.cmd。需要 Windows x64 和 .NET Framework 4.x 编译器。
+拓扑检测器：在版本根目录执行：
+
+dotnet publish Source/TopologyProbe/TopologyProbe.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o TopologyRuntime
+
+不要将个人配置、活动记录或 %LOCALAPPDATA%\CorePilot\VerifiedCoreMap.xml 放入通用发行包。运行高权限计划任务时，程序目录须禁止普通用户写入。

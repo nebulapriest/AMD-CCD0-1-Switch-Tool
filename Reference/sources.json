@@ -1,0 +1,22 @@
+{
+  "source": "https://www.amd.com/en/products/specifications/processors.html",
+  "retrieved": "2026-10-17",
+  "official_rows": 745,
+  "families": {
+    "Sempron": 2,
+    "AMD": 3,
+    "Athlon PRO": 9,
+    "E-Series": 11,
+    "Phenom": 27,
+    "FX-Series": 30,
+    "Ryzen Threadripper": 16,
+    "Ryzen Threadripper PRO": 21,
+    "PRO A-Series": 47,
+    "Athlon": 44,
+    "A-Series": 76,
+    "Ryzen PRO": 157,
+    "Ryzen": 302
+  },
+  "html_sha256": "1fa9268012df387ff119f763e30c45ac7f778e72ffeb15f5543fb68d8d27286d",
+  "notes": "Full available official client processor table snapshot; CCD compatibility is CorePilot inference by architecture codename, not an AMD-provided CCD count. No server EPYC guarantee; not a claim of every historical SKU."
+}
