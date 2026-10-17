@@ -1,0 +1,39 @@
+CorePilot 3.2
+
+用途
+按程序规则设置 Windows 进程的 CPU 亲和性、CPU Sets 和优先级。规则可以继承给子进程；未配置的普通程序使用设置中选择的默认 CCD（初始值为 CCD1）。
+
+默认分配
+默认 CCD 可在“设置”中选择当前检测到的任一 CCD。新启动且没有专属规则的普通程序使用这个分组。需要使用全部 CPU 的程序必须由用户主动放行或设置规则；程序不会猜测某个软件是否为游戏。
+
+CCD 识别
+AMD 官方处理器规格目录保存在 Reference/AMD-processors.xml，并记录来源和抓取日期。程序将芯片型号、逐逻辑核 CPUID、Windows CPU Sets、L3 缓存域和物理核心拓扑交叉核对。只对已确认每个 CCD 对应独立 L3 域的型号自动分组。
+
+自动编号表示硬件 L3 域顺序，不保证等于 BIOS 中的 CCD0/CCD1 标签。此前逐核验证文件只保存在本机 %LOCALAPPDATA%\CorePilot，不打包进通用版本。新电脑、型号未知、APU、虚拟机、拓扑不一致或超过一个 Windows 处理器组时，程序会要求手动核对或暂停硬绑定，不猜测分组。手动核对后映射按机器和拓扑保存。
+
+规则与恢复
+程序每 5 秒检查当前登录会话中可管理的普通应用；运行页面可点击“立即刷新”主动检查。刷新执行期间按钮暂时禁用，避免重复扫描。系统目录进程、关键进程及其他会话不受规则管理。子进程规则依据父子关系与进程创建时间传递，自己的规则优先。暂停、退出或停用规则时，程序尝试恢复此前记录的亲和性、CPU Sets 和被修改的优先级。
+
+登录启动与退出
+“设置”可通过 Windows 计划任务启用或关闭登录自启。启用后以最高权限在用户登录时静默进入托盘；双击托盘图标打开窗口。关闭窗口会缩到托盘。需要结束后台程序时，点击窗口右上角“退出并恢复”或使用托盘菜单。若仍有进程待恢复，程序每 5 秒重试，恢复完成后自动退出；点击“取消退出”可回到托盘监控。安装时运行 Install-CorePilot.ps1。脚本复制到 Program Files\\CorePilot，设置管理员和 SYSTEM 可写、普通用户只读的 ACL，再注册计划任务。程序会再次核对安装路径和 ACL；从用户可写目录启用自启会被拒绝。运行脚本前请关闭托盘中的旧实例。
+
+程序目录
+CorePilot.exe：主界面与调度器。
+CorePilot.Locator.exe：逐核手动定位工具。
+CorePilot.ico / CorePilot.svg / CorePilot.png：应用图标源文件与预览。
+Reference：官方处理器型号目录与来源记录。
+TopologyRuntime：自包含 x64 拓扑检测器，不要求目标机单独安装 .NET。
+Source：C# 源码与构建说明。
+
+配置目录
+配置、日志和恢复记录位于 %LOCALAPPDATA%\CorePilot。设置文件为 settings.xml，活动记录为 activity.log，异常恢复记录为 isolation-recovery.xml。日志页异步读取最近记录，不在 UI 线程扫描完整日志文件。
+
+兼容范围
+Windows 10/11 x64。当前亲和性执行器仅处理一个 Windows 处理器组；检测到多个组时会暂停绑定。系统、内核、中断、驱动和受保护进程仍由 Windows 管理，无法保证 CCD0 完全空闲。CCD 策略不会关闭 Windows 的核心调度。性能影响因游戏和系统而异，需用固定场景测试帧时间。
+
+构建
+主程序和定位工具：运行 Source/Build.cmd。
+拓扑检测器：在项目目录运行 dotnet publish Source/TopologyProbe/TopologyProbe.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o TopologyRuntime。
+AMD 型号目录来源见 Reference/sources.json。AMD 的公开规格表并不直接定义每个型号的 CCD 数量；兼容名单与架构判断是本程序的保守推断。
+
+

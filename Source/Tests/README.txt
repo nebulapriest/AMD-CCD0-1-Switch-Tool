@@ -6,7 +6,7 @@ csc /nologo /out:DiscoveryTests.exe /reference:CorePilot.exe Source\Tests\Discov
 csc /nologo /out:TopologyVariantsTests.exe /reference:CorePilot.exe /reference:System.Xml.dll Source\Tests\TopologyVariantsTests.cs
 csc /nologo /out:RefreshTests.exe /reference:CorePilot.exe /reference:System.Windows.Forms.dll /reference:System.Drawing.dll Source\Tests\RefreshTests.cs
 
-依次运行三个 EXE。测试覆盖本机逐核拓扑交叉核对、模拟不同 CCD 数量与默认选择，以及 UI 列表高频刷新时行、选区、滚动锚点和动画状态的稳定性。临时配置数据写入系统临时目录。
+依次运行三个 EXE。测试覆盖本机逐核拓扑交叉核对、模拟不同 CCD 数量与默认选择，以及 UI 列表高频刷新时行、选区、滚动锚点、动画、设置排版和进程恢复完成后自动退出。临时配置数据写入系统临时目录。
 
 
 高权限自启路径测试：
