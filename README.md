@@ -14,7 +14,7 @@ CorePilot 是一款面向 Windows 的 AMD 多 CCD 程序调度工具。它可以
 
 ## 使用与安全
 
-支持 Windows 10 和 Windows 11 x64。应用清单包含微软用于 Windows 10/11 的兼容性标识；CPU Sets 与系统处理器拓扑接口均由 Windows 10 及之后版本提供。亲和性控制需要足够权限；建议使用随包提供的 `Install-CorePilot.ps1` 安装到受保护的 `Program Files\\CorePilot` 目录，再由 Windows 计划任务以最高权限在登录后静默启动。安装脚本会收紧目录 ACL；程序拒绝从普通用户可写目录启用高权限自启。关闭窗口会缩到托盘；需要结束后台程序时，点击窗口中的“退出并恢复”或使用托盘菜单。恢复暂未完成时，程序会持续重试并在恢复完成后自动退出。
+支持 Windows 10 和 Windows 11 x64。应用清单包含微软用于 Windows 10/11 的兼容性标识；CPU Sets 与系统处理器拓扑接口均由 Windows 10 及之后版本提供。亲和性控制需要足够权限；建议使用随包提供的 `Install-CorePilot.ps1` 安装到受保护的 `Program Files\CorePilot` 目录，再由 Windows 计划任务以最高权限在登录后静默启动。安装脚本会收紧目录 ACL；程序拒绝从普通用户可写目录启用高权限自启。关闭窗口会缩到托盘；需要结束后台程序时，点击窗口中的“退出并恢复”或使用托盘菜单。恢复暂未完成时，程序会持续重试并在恢复完成后自动退出。
 
 CorePilot 不会关闭 Windows 核心调度器。受保护的系统进程、内核、驱动和中断仍由 Windows 管理；当前执行器仅支持一个 Windows 处理器组。硬件 CCD 顺序不保证与 BIOS 标签一致。仅在型号和拓扑校验通过，或用户完成手动核对后才允许按 CCD 绑定。性能收益依工作负载和系统配置而异。
 
@@ -23,7 +23,7 @@ CorePilot 不会关闭 Windows 核心调度器。受保护的系统进程、内�
 主界面和定位工具使用 Windows x64 与 .NET Framework 4.x 编译器：
 
 ```bat
-Source\\Build.cmd
+Source\Build.cmd
 ```
 
 拓扑检测器使用 .NET 10 SDK 构建为自包含 x64 程序：
